@@ -2,131 +2,144 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            padding: 50px;
-            overflow: hidden;
-            /* Prevent scrollbars from floating text movement */
-            position: relative;
-            /* Allows absolute positioning within the body */
-            background-color: #FFD1DC;
-            /* Light pink */
-            transition: background-color 2s;
-            /* Smooth background color transition */
-            margin: 0;
-            /* Removes default margin */
-            height: 100vh;
-            /* 100% of the viewport height */
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday!</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      text-align: center;
+      padding: 50px;
+      overflow: hidden;
+      /* Prevent scrollbars from floating text movement */
+      position: relative;
+      /* Allows absolute positioning within the body */
+      background-color: #ffd1dc;
+      /* Light pink */
+      transition: background-color 2s;
+      /* Smooth background color transition */
+      margin: 0;
+      /* Removes default margin */
+      height: 100vh;
+      /* 100% of the viewport height */
+    }
 
-        #floatingText {
-            max-width: 100%;
-            position: absolute;
-            font-size: 2em;
-            color: #4A235A;
-            /* Initial color */
-            white-space: nowrap;
-            /* Keeps the text on one line */
-            transition: color 0.3s;
-            /* Smooth color transition */
-        }
+    .container {
+      margin: auto;
+    }
 
-        #birthdayMessage {
-            position: fixed;
-            bottom: 20px;
-            width: 100%;
-            font-size: 22px;
-        }
+    #floatingText {
+      position: absolute;
+      font-size: 2em;
+      color: #4A235A;
+      /* Initial color */
+      transition: color 0.3s;
+      /* Smooth color transition */
+      max-width: 90%;
+      /* Set a maximum width */
+      word-wrap: break-word;
+      /* Allows long words to be broken and wrapped to the next line */
+    }
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #FFF;
-            background-color: #3498DB;
-            /* Blue */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    #birthdayMessage {
+      text-align: center;
+      bottom: 20px;
+      width: 100%;
+      font-size: 22px;
+    }
 
-        button:hover {
-            background-color: #2980B9;
-            /* Darker blue */
-        }
-    </style>
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #3498db;
+      /* Blue */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+      /* Darker blue */
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
+  <div class="container">
+    <div id="floatingText">Chusc mwnfg sinh nhat ban nhe</div>
+    <p id="birthdayMessage">GIỎI MÀ ĐÉO CÒN GÌ ĐỂ NÓI LUÔN BẠN ƠI</p>
+    <button onclick="changeBackgroundColor()">Change Background Color</button>
+    <audio id="my_audio" src="AnMung-Tung.mp3"></audio>
+    <button id="music-btn">Play music</button>
+    <script defer>
+      document.addEventListener('DOMContentLoaded', function () {
+        var playButton = document.getElementById('music-btn');
+        var myAudio = document.getElementById('my_audio');
 
-        <div id="floatingText">abcabcabcabcabcabcabcabcabcabcabcabcabc</div>
-        <p id="birthdayMessage">GIỎI MÀ ĐÉO CÒN GÌ ĐỂ NÓI LUÔN BẠN ƠI</p>
-        <button onclick="changeBackgroundColor()">Change Background Color</button>
-    </div>
-
-    <script>
-        function changeBackgroundColor() {
-            // Generate a random color
-            var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-            // Set the background color of the body to the new color
-            document.body.style.backgroundColor = randomColor;
-        }
-
-        const floatingText = document.getElementById('floatingText');
-        let dx = 2; // Delta x: change in position along the x-axis
-        let dy = 2; // Delta y: change in position along the y-axis
-
-        function moveText() {
-            const rect = floatingText.getBoundingClientRect();
-            let newX = rect.left + dx;
-            let newY = rect.top + dy;
-
-            // Adjust newX and newY if they're outside the viewport
-            if (newX <= 0 || newX + rect.width >= window.innerWidth) {
-                dx = -dx; // Reverse direction
-                newX = dx > 0 ? 0 : window.innerWidth - rect.width; // Reset position within bounds
-                changeTextColor();
-            }
-            if (newY <= 0 || newY + rect.height >= window.innerHeight) {
-                dy = -dy; // Reverse direction
-                newY = dy > 0 ? 0 : window.innerHeight - rect.height; // Reset position within bounds
-                changeTextColor();
-            }
-
-            // Update position
-            floatingText.style.left = newX + 'px';
-            floatingText.style.top = newY + 'px';
-
-            requestAnimationFrame(moveText);
-        }
-
-        function changeTextColor() {
-            // Generate a random color
-            const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-            // Change text color
-            floatingText.style.color = randomColor;
-        }
-
-        // Adjust floating text position when the window is resized
-        window.addEventListener('resize', () => {
-            // Reset position to ensure it's within bounds
-            const rect = floatingText.getBoundingClientRect();
-            floatingText.style.left = Math.min(window.innerWidth - rect.width, parseFloat(floatingText.style.left)) + 'px';
-            floatingText.style.top = Math.min(window.innerHeight - rect.height, parseFloat(floatingText.style.top)) + 'px';
+        playButton.addEventListener('click', function () {
+          myAudio.play();
         });
+      });
 
-        // Initial positioning
-        floatingText.style.left = '0px';
-        floatingText.style.top = '0px';
+      function changeBackgroundColor() {
+        var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        document.body.style.backgroundColor = randomColor;
+      }
 
-        moveText(); // Start the animation
+      const floatingText = document.getElementById('floatingText');
+      let dx = 2; // Change in position along the x-axis
+      let dy = 2; // Change in position along the y-axis
+
+      function moveText() {
+        const rect = floatingText.getBoundingClientRect();
+        let newX = rect.left + dx;
+        let newY = rect.top + dy;
+
+        // Check for left or right boundary and adjust direction and position
+        if (newX < 0 || newX + rect.width > document.documentElement.clientWidth) {
+          dx = -dx; // Reverse direction
+          // Clamp newX within the viewport
+          newX = newX < 0 ? 0 : document.documentElement.clientWidth - rect.width;
+          changeTextColor();
+        }
+
+        // Check for top or bottom boundary and adjust direction and position
+        if (newY < 0 || newY + rect.height > document.documentElement.clientHeight) {
+          dy = -dy; // Reverse direction
+          // Clamp newY within the viewport
+          newY = newY < 0 ? 0 : document.documentElement.clientHeight - rect.height;
+          changeTextColor();
+        }
+
+        // Apply new position
+        floatingText.style.left = newX + 'px';
+        floatingText.style.top = newY + 'px';
+
+        requestAnimationFrame(moveText); // Continue the animation
+      }
+
+      function changeTextColor() {
+        const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        floatingText.style.color = randomColor;
+      }
+
+      window.addEventListener('resize', () => {
+        const rect = floatingText.getBoundingClientRect();
+        // Adjust position to ensure it remains within the viewport after resizing
+        floatingText.style.left = Math.min(document.documentElement.clientWidth - rect.width, parseFloat(floatingText.style.left)) + 'px';
+        floatingText.style.top = Math.min(document.documentElement.clientHeight - rect.height, parseFloat(floatingText.style.top)) + 'px';
+      });
+
+      // Initial positioning
+      floatingText.style.left = '0px';
+      floatingText.style.top = '0px';
+
+      moveText(); // Start the animation
     </script>
+
 </body>
 
 </html>
