@@ -80,7 +80,11 @@
         var myAudio = document.getElementById('my_audio');
 
         playButton.addEventListener('click', function () {
-          myAudio.play();
+          if (myAudio.paused) {
+            myAudio.play();  // If the audio is paused, play it
+          } else {
+            myAudio.pause(); // If the audio is playing, pause it
+          }
         });
       });
 
